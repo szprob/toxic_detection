@@ -2,7 +2,10 @@
 
 文本/图像的恶意检测.
 
-## 使用
+交互的demo部署到了huggingface,连接:
+https://huggingface.co/spaces/szzzzz/toxic_detection
+
+## 安装使用
 
 ```shell
 git clone git@github.com:szprob/toxic_detection.git
@@ -21,6 +24,7 @@ python setup.py install --user
 16m百度云地址：https://pan.baidu.com/s/1W8JdKHHguWvi9DVvVkz2bQ ,提取码：qewg
 
 51m百度云地址：https://pan.baidu.com/s/1mU0FWQ3gdSgmzen6X-3nDQ ,提取码：qewg
+
 
 ## 文本检测
 
