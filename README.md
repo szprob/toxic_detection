@@ -15,8 +15,8 @@ python setup.py install --user
 图像部分使用了resnet50.
 模型百度云地址：https://pan.baidu.com/s/1tJABYK92zIgGONwQvRjv7A ,提取码：qewg
 文本部分使用了bert,训练了16m和51m两种参数量的模型.
-16m百度云地址：https://pan.baidu.com/s/1mmJX-RlHeeB2ly0c1ucLkQ ,提取码：qewg
-51m百度云地址：https://pan.baidu.com/s/1A_Q45Us9D8W8vjsRWu0Law  ,提取码：qewg
+16m百度云地址：https://pan.baidu.com/s/1W8JdKHHguWvi9DVvVkz2bQ ,提取码：qewg
+51m百度云地址：https://pan.baidu.com/s/1mU0FWQ3gdSgmzen6X-3nDQ ,提取码：qewg
 
 ## 文本检测
 
