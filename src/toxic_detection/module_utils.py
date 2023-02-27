@@ -2,6 +2,7 @@ import os
 import pickle
 import tarfile
 import tempfile
+from abc import abstractmethod
 from typing import Dict, Optional, Union
 
 TEMP_PATH = "/tmp/.toxic_detection"
@@ -26,6 +27,7 @@ class PreTrainedModule:
             os.mkdir(TEMP_PATH)
         self._tmpdir = tempfile.TemporaryDirectory(prefix=f"{TEMP_PATH}/")
 
+    @abstractmethod
     def load(self, model: Union[str, Dict]) -> None:
         """Load  state dict from local model path.
 
