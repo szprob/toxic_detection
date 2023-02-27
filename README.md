@@ -13,6 +13,12 @@ cd toxic_detection
 python setup.py install --user
 ```
 
+或者直接
+
+```shell
+pip install git+https://github.com/szprob/toxic_detection.git
+```
+
 ## 模型
 
 图像部分使用了resnet50.
