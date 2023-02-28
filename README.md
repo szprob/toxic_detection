@@ -2,7 +2,7 @@
 
 文本/图像的恶意检测.
 
-交互的demo部署到了huggingface,连接:
+交互的demo部署到了huggingface:
 https://huggingface.co/spaces/szzzzz/toxic_detection
 
 ## 安装使用
