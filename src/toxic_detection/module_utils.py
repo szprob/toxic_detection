@@ -74,6 +74,6 @@ class PreTrainedModule:
     def download(self, repo_id: str, cache_dir: Optional[str] = None) -> str:
         """download model from huggingface and return local dir"""
         if cache_dir is None:
-            cache_dir = self._tmpdir
+            cache_dir = self._tmpdir.name
         local_path = snapshot_download(repo_id=repo_id, cache_dir=cache_dir)
         return local_path
