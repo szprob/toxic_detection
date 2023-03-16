@@ -58,7 +58,17 @@ model.load(model_path)
 model.load('szzzzz/text_detect_bert_16m')
 
 # 模型预测
-model.detect("fuccck you.")
+result = model.detect("fuccck you.")
+'''
+result
+{'toxic': 0.94,
+ 'severe_toxic': 0.03,
+ 'obscene': 0.59,
+ 'threat': 0.02,
+ 'insult': 0.44,
+ 'identity_hate': 0.05}
+'''
+
 ```
 
 ## 图像检测
@@ -74,5 +84,11 @@ model.load(model_path)
 # 也可以直接使用远端
 model.load('szzzzz/toxic_detection_res50')
 
-model.detect(img_path)
+result = model.detect(img_path)
+'''
+result
+{'obscene': 0.22,
+ 'discomfort': 0.93,}
+'''
+
 ```
