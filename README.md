@@ -21,6 +21,8 @@ pip install git+https://github.com/szprob/toxic_detection.git
 
 ## 模型
 
+预训练模型全部开源,可以直接下载,也可以直接在代码中读取远端模型.
+
 图像部分使用了resnet50.
 
 模型百度云地址：https://pan.baidu.com/s/1tJABYK92zIgGONwQvRjv7A ,提取码：qewg
@@ -49,8 +51,13 @@ huggingface : https://huggingface.co/szzzzz/text_detect_bert_51m
 from toxic_detection import TextToxicDetector
 
 model = TextToxicDetector()
-model.load(model_path)
 
+# 如果模型down到了本地
+model.load(model_path)
+# 也可以直接使用远端
+model.load('szzzzz/text_detect_bert_16m')
+
+# 模型预测
 model.detect("fuccck you.")
 ```
 
@@ -62,7 +69,10 @@ model.detect("fuccck you.")
 from toxic_detection import ImgToxicDetector
 
 model = ImgToxicDetector()
+# 如果模型down到了本地
 model.load(model_path)
+# 也可以直接使用远端
+model.load('szzzzz/toxic_detection_res50')
 
 model.detect(img_path)
 ```
