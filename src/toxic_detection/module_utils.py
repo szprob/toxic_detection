@@ -5,6 +5,8 @@ import tempfile
 from abc import abstractmethod
 from typing import Dict, Optional, Union
 
+from huggingface_hub import snapshot_download
+
 TEMP_PATH = "/tmp/.toxic_detection"
 
 
@@ -18,6 +20,11 @@ class PreTrainedModule:
     """
 
     _TEMP_PATH = TEMP_PATH
+    _PRETRAINED_LIST = [
+        "szzzzz/toxic_detection_res50",
+        "szzzzz/text_detect_bert_16m",
+        "szzzzz/text_detect_bert_51m",
+    ]
 
     def __init__(
         self,
@@ -63,3 +70,10 @@ class PreTrainedModule:
         tar = tarfile.open(file, "r")
         tar.extractall(path=dir)
         tar.close()
+
+    def download(self, repo_id: str, cache_dir: Optional[str] = None) -> str:
+        """download model from huggingface and return local dir"""
+        if cache_dir is None:
+            cache_dir = self._tmpdir
+        local_path = snapshot_download(repo_id=repo_id, cache_dir=cache_dir)
+        return local_path

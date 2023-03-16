@@ -60,16 +60,20 @@ class Detector(PreTrainedModule):
         return self._classifier
 
     def load(self, model: str) -> None:
-        """Load  state dict from local model path .
+        """Load  state dict from huggingface repo or local model path or dict.
 
         Args:
             model (str):
                 Model file need to be loaded.
-                A string, the path of a pretrained model.
+                Can be either:
+                    path of a pretrained model.
+                    model repo.
 
         Raises:
             ValueError: str model should be a path!
         """
+        if model in self._PRETRAINED_LIST:
+            model = self.download(model)
 
         if isinstance(model, str):
             if os.path.isdir(model):
