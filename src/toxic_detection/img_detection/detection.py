@@ -6,7 +6,7 @@ from PIL import Image
 from torchvision import transforms
 
 from toxic_detection.img_detection.classification_model import Classifier
-from toxic_detection.img_detection.img_utils import read_im
+from toxic_detection.img_detection.img_utils import read_im,get_pieces_from_img,get_max_dict
 from toxic_detection.module_utils import PreTrainedModule
 
 
@@ -107,32 +107,32 @@ class Detector(PreTrainedModule):
         )
         self._classifier.eval()
 
-    def _transform(self, input: Union[str, bytes, Image.Image]) -> torch.Tensor:
-        """Transforms image to torch tensor.
-
-        Args:
-            input (Union[str,bytes,Image.Image]):
-                Image .
-
-        Raises:
-            ValueError:
-                `input` should be a str or bytes!
-
-        Returns:
-            torch.Tensor:
-                Transformed torch tensor.
-        """
-
-        im = read_im(input)
-        out = self._trans(im).view(1, 3, 224, 224).float()
+    def _transform(self, input:Image.Image) -> torch.Tensor:
+        out = self._trans(input).view(1, 3, 224, 224).float()
         return out
 
+    
     def _score(self, input: torch.Tensor) -> List[float]:
         """Scoring the input image."""
         toxic_score = self._classifier.score(input)
         toxic_score = [round(s, 3) for s in toxic_score][1:]
         return toxic_score
 
+    
+    def _detect(self, input: Image.Image) -> Dict:
+        
+        input = self._transform(input)
+        toxic_score = self._score(input)
+
+        out = dict(
+            zip(
+                self._tags,
+                toxic_score,
+            )
+        )
+        return out
+    
+    
     def detect(self, input: Union[str, bytes, Image.Image]) -> Dict:
         """Detects toxic contents from image `input`.
 
@@ -148,14 +148,28 @@ class Detector(PreTrainedModule):
             Dict:
                 Pattern as  Dict[str,float]
         """
+        im = read_im(input)
+        
+        score = self._detect(im)
+        for key in score.keys():
+            if score[key] >  0.8:
+                return score 
+        
+        for key in score.keys():
+            if score[key] >  0.5:
+                score = self._multi_pieces_img_detect(im)
+                return score 
+        
+        return score
 
-        im = self._transform(input)
-        toxic_score = self._score(im)
-
-        out = dict(
-            zip(
-                self._tags,
-                toxic_score,
-            )
-        )
-        return out
+    
+    def _multi_pieces_img_detect(self,im):
+        ims = get_pieces_from_img(im)
+        score = None 
+        for i in ims:
+            image_toxic_score = self._detect(i)
+            if score is None :
+                score = image_toxic_score
+            else:
+                score = get_max_dict(score,image_toxic_score)
+        return score 
