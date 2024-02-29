@@ -133,7 +133,7 @@ class Detector(PreTrainedModule):
         return out
     
     
-    def detect(self, input: Union[str, bytes, Image.Image]) -> Dict:
+    def detect(self, input: Union[str, bytes, Image.Image],multi_pieces:bool=True) -> Dict:
         """Detects toxic contents from image `input`.
 
         Args:
@@ -151,18 +151,15 @@ class Detector(PreTrainedModule):
         im = read_im(input)
         
         score = self._detect(im)
-        for key in score.keys():
-            if score[key] >  0.8:
-                return score 
-        
-        for key in score.keys():
-            if score[key] >  0.5:
-                score = self._multi_pieces_img_detect(im)
-                return score 
-        
-        return score
+        max_score = max(score.values())
+        if max_score>0.75:
+            return score 
+        elif max_score>0.45 and multi_pieces:
+            score = self._multi_pieces_img_detect(im)
+            return score 
+        else:
+            return score 
 
-    
     def _multi_pieces_img_detect(self,im):
         ims = get_pieces_from_img(im)
         score = None 

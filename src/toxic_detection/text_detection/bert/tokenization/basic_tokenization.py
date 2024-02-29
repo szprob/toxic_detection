@@ -1,7 +1,7 @@
 # coding=utf-8
 from typing import Iterable, List, Optional
 
-from toxic_detection.text_detection.tokenization.tokenization_utils import (
+from .tokenization_utils import (
     clean_text,
     convert_to_unicode,
     keep_ascii,

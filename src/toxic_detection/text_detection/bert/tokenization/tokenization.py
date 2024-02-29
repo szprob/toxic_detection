@@ -5,11 +5,9 @@ from typing import Dict, Iterable, List, Optional, Union
 import torch
 
 from toxic_detection.module_utils import PreTrainedModule
-from toxic_detection.text_detection.tokenization.basic_tokenization import (
-    BasicTokenizer,
-)
-from toxic_detection.text_detection.tokenization.bpe import BPE
-from toxic_detection.text_detection.tokenization.tokenization_utils import pad_list
+from .basic_tokenization import BasicTokenizer
+from .bpe import BPE
+from .tokenization_utils import pad_list
 
 
 class Tokenizer(PreTrainedModule):

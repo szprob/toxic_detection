@@ -3,7 +3,7 @@ from typing import Dict, Optional
 import torch
 from torch import nn
 
-from toxic_detection.text_detection.bert.bert import BERT
+from .bert.bert import BERT
 
 
 class Classifier(nn.Module):

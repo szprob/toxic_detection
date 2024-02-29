@@ -3,8 +3,8 @@ from typing import Optional
 import torch
 from torch import nn
 
-from toxic_detection.text_detection.bert.attention import MultiHeadAttention
-from toxic_detection.text_detection.bert.pff import PositionwiseFeedForward
+from .attention import MultiHeadAttention
+from .pff import PositionwiseFeedForward
 
 
 class EncoderLayer(nn.Module):

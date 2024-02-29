@@ -5,9 +5,9 @@ import torch
 from torch import nn
 
 from toxic_detection.module_utils import PreTrainedModule
-from toxic_detection.text_detection.bert.embedding import Embeddings
-from toxic_detection.text_detection.bert.encoder import Encoder
-from toxic_detection.text_detection.bert.nn_utils import get_pad_mask
+from .embedding import Embeddings
+from .encoder import Encoder
+from .nn_utils import get_pad_mask
 
 
 class BERT(PreTrainedModule, nn.Module):

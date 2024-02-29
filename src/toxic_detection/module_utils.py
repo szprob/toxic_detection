@@ -24,6 +24,7 @@ class PreTrainedModule:
         "szzzzz/toxic_detection_res50",
         "szzzzz/text_detect_bert_16m",
         "szzzzz/text_detect_bert_51m",
+        "szzzzz/xlm-roberta-base-text-toxic",
     ]
 
     def __init__(

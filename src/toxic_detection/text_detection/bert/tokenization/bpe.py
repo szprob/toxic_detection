@@ -1,6 +1,6 @@
 from typing import Dict, Iterable, List, Optional, Set, Union
 
-from toxic_detection.text_detection.tokenization.tokenization_utils import (
+from .tokenization_utils import (
     whitespace_tokenize,
 )
 

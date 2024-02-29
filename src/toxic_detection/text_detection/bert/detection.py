@@ -4,11 +4,11 @@ from typing import Dict, Optional
 import torch
 
 from toxic_detection.module_utils import PreTrainedModule
-from toxic_detection.text_detection.classification_model import Classifier
-from toxic_detection.text_detection.tokenization.tokenization import (
+from .classification_model import Classifier
+from .tokenization.tokenization import (
     Tokenizer as BertTokenizer,
 )
-from toxic_detection.text_detection.utils import convert_to_unicode
+from .utils import convert_to_unicode
 
 
 class Detector(PreTrainedModule):

@@ -42,15 +42,38 @@ huggingface : https://huggingface.co/szzzzz/text_detect_bert_51m
 
 ## 文本检测
 
-文本目前只做了英文.
-类别和kaggle toxic comment detection任务一致.
-包括"toxic","severe_toxic","obscene","threat","insult","identity_hate".
+
+roberta支持en,fr,tr,ru,es,id,pt,vi.
+类别只包含toxic.
 使用方法如下:
 
 ```python
 from toxic_detection import TextToxicDetector
 
 model = TextToxicDetector()
+
+# 如果模型down到了本地
+model.load(model_path)
+# 也可以直接使用远端
+model.load('szzzzz/xlm-roberta-base-text-toxic')
+
+# 模型预测
+result = model.detect("fuccck you.")
+'''
+result
+{'toxic': 0.94}
+'''
+```
+
+bert版本支持en.
+类别和kaggle toxic comment detection任务一致.
+包括"toxic","severe_toxic","obscene","threat","insult","identity_hate".
+使用方法如下:
+
+```python
+from toxic_detection import BertTextToxicDetector
+
+model = BertTextToxicDetector()
 
 # 如果模型down到了本地
 model.load(model_path)
