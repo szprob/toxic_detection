@@ -5,9 +5,9 @@ import torch
 from PIL import Image
 from torchvision import transforms
 
-from toxic_detection.img_detection.classification_model import Classifier
-from toxic_detection.img_detection.img_utils import read_im,get_pieces_from_img,get_max_dict
-from toxic_detection.module_utils import PreTrainedModule
+from .classification_model import Classifier
+from .img_utils import read_im, get_pieces_from_img, get_max_dict
+from ..module_utils import PreTrainedModule
 
 
 class Detector(PreTrainedModule):
@@ -107,20 +107,18 @@ class Detector(PreTrainedModule):
         )
         self._classifier.eval()
 
-    def _transform(self, input:Image.Image) -> torch.Tensor:
+    def _transform(self, input: Image.Image) -> torch.Tensor:
         out = self._trans(input).view(1, 3, 224, 224).float()
         return out
 
-    
     def _score(self, input: torch.Tensor) -> List[float]:
         """Scoring the input image."""
         toxic_score = self._classifier.score(input)
         toxic_score = [round(s, 3) for s in toxic_score][1:]
         return toxic_score
 
-    
     def _detect(self, input: Image.Image) -> Dict:
-        
+
         input = self._transform(input)
         toxic_score = self._score(input)
 
@@ -131,9 +129,10 @@ class Detector(PreTrainedModule):
             )
         )
         return out
-    
-    
-    def detect(self, input: Union[str, bytes, Image.Image],multi_pieces:bool=True) -> Dict:
+
+    def detect(
+        self, input: Union[str, bytes, Image.Image], multi_pieces: bool = True
+    ) -> Dict:
         """Detects toxic contents from image `input`.
 
         Args:
@@ -149,24 +148,24 @@ class Detector(PreTrainedModule):
                 Pattern as  Dict[str,float]
         """
         im = read_im(input)
-        
+
         score = self._detect(im)
         max_score = max(score.values())
-        if max_score>0.75:
-            return score 
-        elif max_score>0.45 and multi_pieces:
+        if max_score > 0.75:
+            return score
+        elif max_score > 0.45 and multi_pieces:
             score = self._multi_pieces_img_detect(im)
-            return score 
+            return score
         else:
-            return score 
+            return score
 
-    def _multi_pieces_img_detect(self,im):
+    def _multi_pieces_img_detect(self, im):
         ims = get_pieces_from_img(im)
-        score = None 
+        score = None
         for i in ims:
             image_toxic_score = self._detect(i)
-            if score is None :
+            if score is None:
                 score = image_toxic_score
             else:
-                score = get_max_dict(score,image_toxic_score)
-        return score 
+                score = get_max_dict(score, image_toxic_score)
+        return score
