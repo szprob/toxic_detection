@@ -31,6 +31,8 @@ huggingface : https://huggingface.co/szzzzz/toxic_detection_res50
 
 文本部分使用了bert,训练了16m和51m两种参数量的模型.
 
+bert:
+
 16m百度云地址：https://pan.baidu.com/s/1W8JdKHHguWvi9DVvVkz2bQ ,提取码：qewg
 
 huggingface : https://huggingface.co/szzzzz/text_detect_bert_16m
@@ -39,6 +41,9 @@ huggingface : https://huggingface.co/szzzzz/text_detect_bert_16m
 
 huggingface : https://huggingface.co/szzzzz/text_detect_bert_51m
 
+roberta:
+
+huggingface : https://huggingface.co/szzzzz/xlm-roberta-base-text-toxic
 
 ## 文本检测
 
